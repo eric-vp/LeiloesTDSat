@@ -33,8 +33,10 @@ public class ProdutosDAO {
             ps.setInt(2, produto.getValor());
             ps.setString(3, produto.getStatus());
             ps.execute();
+            
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
         } catch (SQLException sqle) {
-            JOptionPane.showMessageDialog(null, "Erro no acesso ao Banco de Dados : "+ sqle.getMessage());
+            JOptionPane.showMessageDialog(null, "Não foi possível cadastrar o produto.");
         }
         
         
