@@ -68,16 +68,16 @@ public class ProdutosDAO {
         return listagem;
     }   
     
-    public void venderProduto(ProdutosDTO produto) {
+    public void venderProduto(int produtoId) {
         conn = new conectaDAO().connectDB();
         String sql = "update produtos set status = 'Vendido' where id = ?";
         
         try {
             PreparedStatement ps = this.conn.prepareStatement(sql);
-            ps.setInt(1, produto.getId());
+            ps.setInt(1, produtoId);
             ps.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "O produto " + produto.getNome() + " foi vendido com sucesso!");
+            JOptionPane.showMessageDialog(null, "O produto foi vendido com sucesso!");
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(null, "Erro no acesso ao Banco de Dados : "+ sqle.getMessage());
         }
