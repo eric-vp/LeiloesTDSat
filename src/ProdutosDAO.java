@@ -83,7 +83,7 @@ public class ProdutosDAO {
         }
     }
     
-    public ArrayList<ProdutosDAO> listarProdutosVendidos() {
+    public ArrayList<ProdutosDTO> listarProdutosVendidos() {
         conn = new conectaDAO().connectDB();
         String sql = "select * from produtos where status = 'Vendido'";
         listagem.clear();
@@ -106,6 +106,7 @@ public class ProdutosDAO {
             JOptionPane.showMessageDialog(null, "Erro no acesso ao Banco de Dados : "+ sqle.getMessage());
         }
         
+        return listagem;
     }
 }
 
