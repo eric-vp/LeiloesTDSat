@@ -54,6 +54,7 @@ public class ProdutosDAO {
             while (rs.next()) {
                 ProdutosDTO produto = new ProdutosDTO();
                 
+                produto.setId(rs.getInt("id"));
                 produto.setNome(rs.getString("nome"));
                 produto.setValor(rs.getInt("valor"));
                 produto.setStatus(rs.getString("status"));    
@@ -67,9 +68,44 @@ public class ProdutosDAO {
         return listagem;
     }   
     
-    public void venderProduto() {
+    public void venderProduto(ProdutosDTO produto) {
         conn = new conectaDAO().connectDB();
-        String sql = "set status = 'vendido' where id = ";
+        String sql = "update produtos set status = 'Vendido' where id = ?";
+        
+        try {
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            ps.setInt(1, produto.getId());
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "O produto " + produto.getNome() + " foi vendido com sucesso!");
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, "Erro no acesso ao Banco de Dados : "+ sqle.getMessage());
+        }
+    }
+    
+    public ArrayList<ProdutosDAO> listarProdutosVendidos() {
+        conn = new conectaDAO().connectDB();
+        String sql = "select * from produtos where status = 'Vendido'";
+        listagem.clear();
+        
+        try {
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+                
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor(rs.getInt("valor"));
+                produto.setStatus(rs.getString("status"));    
+                
+                listagem.add(produto);
+            }
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(null, "Erro no acesso ao Banco de Dados : "+ sqle.getMessage());
+        }
+        
     }
 }
 
