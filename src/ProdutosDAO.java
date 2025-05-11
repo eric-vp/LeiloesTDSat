@@ -66,5 +66,10 @@ public class ProdutosDAO {
         
         return listagem;
     }   
+    
+    public void venderProduto() {
+        conn = new conectaDAO().connectDB();
+        String sql = "set status = 'vendido' where id = ";
+    }
 }
 
